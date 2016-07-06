@@ -15,12 +15,11 @@ public class RfidEvent {
 	public String EPC;
 	public String timeStamp;
 	public String peakRSSI;
-	public String readCount;
+	public Long readCount;
 	
     protected RfidEvent() {}
 	
-	public RfidEvent(String readerName, String ePC, String timeStamp, String peakRSSI, String readCount) {
-		System.out.println(readerName);
+	public RfidEvent(String readerName, String ePC, String timeStamp, String peakRSSI, Long readCount) {
 		this.readerName = readerName;
 		this.EPC = ePC;
 		this.timeStamp = timeStamp;
