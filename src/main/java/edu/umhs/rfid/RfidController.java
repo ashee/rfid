@@ -39,7 +39,7 @@ public class RfidController {
 
 		// a set of EPC tags are coming in with a newline as record separator
 		// within each record, the fields are comma separated
-		// see an example below (including the training newlines)
+		// see an example below (including the trailing newlines)
 		// 300833B2DDD9014000000000,1/1/1970 4:37:25 AM,-75,5407
 		// E104,1/1/1970 4:46:19 AM,-79,17306
 		//
