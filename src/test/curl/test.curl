@@ -1,0 +1,5 @@
+curl -XPOST \
+	-F "reader_Name=Astra-EX" \
+	-F "field_names=EPC,TimeStamp,Peak RSSI,Read Count" \
+	-F $'field_values=300833B2DDD9014000000000,1/1/1970 4:37:25 AM,-75,5407\nE101,1/1/1970 12:43:28 AM,-28,58688' \
+	http://localhost:8080/
