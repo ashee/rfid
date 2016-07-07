@@ -1,6 +1,11 @@
 package edu.umhs.rfid;
 
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,12 @@ public class RfidController {
 	}
 
 
+	/**
+	 * @param request
+	 * @param readerName
+	 * @param fieldNames
+	 * @param fieldValues
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public void take(HttpServletRequest request,
 			@RequestParam(value = "reader_Name", required = true) String readerName,
@@ -38,8 +49,23 @@ public class RfidController {
 			if (record == "") continue;
 			String fields[] = record.split(",");
 			RfidEvent e = new RfidEvent(readerName, 
-					fields[0].trim(), fields[1].trim(), fields[2].trim(), Long.parseLong(fields[3].trim()));
+					fields[0].trim(), 
+					parseTimestamp(fields[1].trim()), 
+					fields[2].trim(), 
+					Long.parseLong(fields[3].trim()));
 			rfidRepository.save(e);
 		}				
+	}
+
+	private Timestamp parseTimestamp(String str) {
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a"); 
+		Timestamp ts;
+		try {
+			Date dt = fmt.parse(str);
+			ts = new Timestamp(dt.getTime());
+		} catch (ParseException e1) {
+			ts = null;
+		}
+		return ts;
 	}
 }

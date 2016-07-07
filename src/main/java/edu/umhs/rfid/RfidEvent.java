@@ -1,5 +1,7 @@
 package edu.umhs.rfid;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +15,13 @@ public class RfidEvent {
     
     public String readerName;
 	public String EPC;
-	public String timeStamp;
+	public Timestamp timeStamp;
 	public String peakRSSI;
 	public Long readCount;
 	
     protected RfidEvent() {}
 	
-	public RfidEvent(String readerName, String ePC, String timeStamp, String peakRSSI, Long readCount) {
+	public RfidEvent(String readerName, String ePC, Timestamp timeStamp, String peakRSSI, Long readCount) {
 		this.readerName = readerName;
 		this.EPC = ePC;
 		this.timeStamp = timeStamp;
