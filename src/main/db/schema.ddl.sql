@@ -124,7 +124,7 @@ ALTER TABLE rfid_tag
 
 ALTER TABLE rfid_tag
 	ADD CONSTRAINT fk_tag_subject
-		FOREIGN KEY (provider_id)
+		FOREIGN KEY (subject_id)
 		REFERENCES rfid_subject(id);
 
 ALTER TABLE rfid_tag_assignment

@@ -1,7 +1,5 @@
 package edu.umhs.rfid.model;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +12,7 @@ public class RfidTag {
     private long id;
     
     private String epc;
-	private String taggableType;
+	private String tagType;
     private Long subjectId;
     private Long providerId;
     
@@ -26,8 +24,8 @@ public class RfidTag {
 		return epc;
 	}
 
-	public String getTaggableType() {
-		return taggableType;
+	public String getTagType() {
+		return tagType;
 	}
 
 	public Long getSubjectId() {
@@ -40,11 +38,11 @@ public class RfidTag {
 
 	protected RfidTag() {}
 	
-	public static RfidTag createTaggable(String epc, String taggableType, Long taggedObject) throws Exception {
+	public static RfidTag createTag(String epc, String tagType, Long taggedObject) throws Exception {
 		RfidTag taggable = new RfidTag();
 		taggable.epc = epc;
-		taggable.taggableType = taggableType;
-		switch (taggableType) {
+		taggable.tagType = tagType;
+		switch (tagType) {
 		case "S":
 			taggable.subjectId = taggedObject;
 			break;
@@ -52,7 +50,7 @@ public class RfidTag {
 			taggable.providerId = taggedObject;
 			break;
 		default:
-			throw new Exception(String.format("Unexcepted taggableType '%s'", taggableType));
+			throw new Exception(String.format("Unexcepted tagType '%s'", tagType));
 
 		}
 		return taggable;
