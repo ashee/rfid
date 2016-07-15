@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.umhs.rfid.model.RfidEvent;
+import edu.umhs.rfid.persistence.RfidEventRepository;
+
 @RestController
 public class RfidController {
 

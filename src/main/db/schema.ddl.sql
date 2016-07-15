@@ -57,7 +57,7 @@ CREATE TABLE rfid_location (
 CREATE TABLE rfid_reader (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	reader_type VARCHAR(80) NOT NULL,
-	reader_name VARCHAR(80) NOT NULL,
+	name VARCHAR(80) NOT NULL,
 	description VARCHAR(512) NULL
 ) ENGINE=INNODB;
 
@@ -78,19 +78,20 @@ CREATE TABLE rfid_subject (
 CREATE TABLE rfid_provider (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	provider_type VARCHAR(80) NOT NULL,
-	institional_id VARCHAR(50) NOT NULL
+	institutional_id VARCHAR(50) NOT NULL
 ) ENGINE=INNODB;
 
-CREATE TABLE rfid_taggable (
+CREATE TABLE rfid_tag (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	taggable_type CHAR(1) NOT NULL, -- 'P' = Provider, 'S' = Subject
-	provider_id BIGINT NULL,
-	subject_id BIGINT NULL
+	epc VARCHAR(30) NOT NULL,
+	tag_type CHAR(1) NOT NULL, -- 'P' = Provider, 'S' = Subject
+	provider_id BIGINT NULL, -- not null when tag_type == 'P'
+	subject_id BIGINT NULL -- not null when tag_type == 'S'
 ) ENGINE=INNODB;
 
 CREATE TABLE rfid_tag_assignment (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	taggable_id BIGINT NOT NULL,
+	tag_id BIGINT NOT NULL,
 	status CHAR(1) NOT NULL, -- 'A' = Active, 'I' = Inactive
 	start_date DATETIME NOT NULL,
 	end_date DATETIME NULL
@@ -116,21 +117,21 @@ ALTER TABLE rfid_reader_location
 		FOREIGN KEY (reader_id)
 		REFERENCES rfid_reader(id);
 
-ALTER TABLE rfid_taggable
-	ADD CONSTRAINT fk_taggable_provider
+ALTER TABLE rfid_tag
+	ADD CONSTRAINT fk_tag_provider
 		FOREIGN KEY (provider_id)
 		REFERENCES rfid_provider(id);
 
-ALTER TABLE rfid_taggable
-	ADD CONSTRAINT fk_taggable_subject
+ALTER TABLE rfid_tag
+	ADD CONSTRAINT fk_tag_subject
 		FOREIGN KEY (provider_id)
 		REFERENCES rfid_subject(id);
 
 ALTER TABLE rfid_tag_assignment
 	ADD CONSTRAINT uk_tag_assignment
-		UNIQUE KEY (taggable_id, status);
+		UNIQUE KEY (tag_id, status);
 
 ALTER TABLE rfid_tag_assignment
-	ADD CONSTRAINT fk_taggable
-		FOREIGN KEY (taggable_id)
-		REFERENCES rfid_taggable(id);
+	ADD CONSTRAINT fk_tag
+		FOREIGN KEY (tag_id)
+		REFERENCES rfid_tag(id);

@@ -1,4 +1,4 @@
-package edu.umhs.rfid;
+package edu.umhs.rfid.model;
 
 import java.sql.Timestamp;
 
