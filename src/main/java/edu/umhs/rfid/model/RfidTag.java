@@ -7,16 +7,16 @@ import javax.persistence.Id;
 
 @Entity
 public class RfidTag {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
-    
-    private String epc;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	private String epc;
 	private String tagType;
-    private Long subjectId;
-    private Long providerId;
-    
-    public long getId() {
+	private Long subjectId;
+	private Long providerId;
+
+	public long getId() {
 		return id;
 	}
 
@@ -36,23 +36,31 @@ public class RfidTag {
 		return providerId;
 	}
 
-	protected RfidTag() {}
-	
-	public static RfidTag createTag(String epc, String tagType, Long taggedObject) throws Exception {
-		RfidTag taggable = new RfidTag();
-		taggable.epc = epc;
-		taggable.tagType = tagType;
+	protected RfidTag() {
+	}
+
+	private static RfidTag createTag(String epc, String tagType, Long taggedId) throws Exception {
+		RfidTag tag = new RfidTag();
+		tag.epc = epc;
+		tag.tagType = tagType;
 		switch (tagType) {
-		case "S":
-			taggable.subjectId = taggedObject;
-			break;
 		case "P":
-			taggable.providerId = taggedObject;
+			tag.providerId = taggedId;
+			break;
+		case "S":
+			tag.subjectId = taggedId;
 			break;
 		default:
-			throw new Exception(String.format("Unexcepted tagType '%s'", tagType));
-
+			throw new Exception(String.format("Invalid tagType: '%s'", tagType));
 		}
-		return taggable;
+		return tag;
+	}
+
+	public static RfidTag createProviderTag(String epc, Long providerId) throws Exception {
+		return RfidTag.createTag(epc, "P", providerId);
+	}
+
+	public static RfidTag createSubjectTag(String epc, Long subjectId) throws Exception {
+		return RfidTag.createTag(epc, "S", subjectId);
 	}
 }

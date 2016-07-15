@@ -24,31 +24,37 @@ public class RfidTagAssignment {
 	Timestamp endDate;
 	
 	protected RfidTagAssignment() {}
-	
-	public static RfidTagAssignment createProviderAssignment(String epc, Long providerId, String status, Timestamp startDate) 
-		throws Exception {
-		return RfidTagAssignment.createProviderAssignment(epc, providerId, status, startDate, null);
+
+	public RfidTagAssignment(RfidTag tag, String status, Timestamp startDate, Timestamp endDate) {
+		this.tag = tag;
+		this.status = status;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	
-	public static RfidTagAssignment createProviderAssignment(
-			String epc, Long providerId, String status, Timestamp startDate, Timestamp endDate) 
-			throws Exception {
-		RfidTagAssignment a = new RfidTagAssignment();
-		a.tag = RfidTag.createTag(epc, "P", providerId);
-		a.status = status;
-		a.startDate = startDate;
-		a.endDate = endDate;
-		return a;
+	public RfidTagAssignment(RfidTag tag, String status, Timestamp startDate) {
+		this(tag,status,startDate,null);
 	}
 
-	public static RfidTagAssignment createSubjectAssignment(
-			String epc, Long subjectId, String status, Timestamp startDate, Timestamp endDate) 
-			throws Exception {
-		RfidTagAssignment a = new RfidTagAssignment();
-		a.tag = RfidTag.createTag(epc, "S", subjectId);
-		a.status = status;
-		a.startDate = startDate;
-		a.endDate = endDate;
-		return a;	
+	public long getId() {
+		return id;
 	}
+
+	public RfidTag getTag() {
+		return tag;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public Timestamp getStartDate() {
+		return startDate;
+	}
+
+	public Timestamp getEndDate() {
+		return endDate;
+	}
+	
+	
 }
