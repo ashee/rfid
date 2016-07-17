@@ -26,11 +26,11 @@ Please note that STS includes a git tool within the IDE. See [http://www.eclipse
 Invoke the following scripts in sequence
 $ mysql < src/main/db/createdb.sql 
 $ mysql -u rfid -p < src/main/db/schema.ddl.sql 
-It will prompt for a password, use <pasword>
+It will prompt for a password. Please configure 
+your mysql password and update it in the following
+files 
+* src/main/db/createdb.sql
+* src/main/resources/application.properties
 
-Please configure mysql password to your liking.
-The default shipped here with src/main/db/createdb.sql
-and src/main/resources/application.properties
-
-Also, note that JPA is configured to autocreate &
-update the database schema.
+Note that JPA is configured to autocreate &
+update the application database schema.
