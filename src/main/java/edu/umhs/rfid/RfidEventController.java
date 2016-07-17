@@ -18,7 +18,8 @@ import edu.umhs.rfid.model.RfidEvent;
 import edu.umhs.rfid.persistence.RfidEventRepository;
 
 @RestController
-public class RfidController {
+@RequestMapping(value = "/event")
+public class RfidEventController {
 
 	private RfidEventRepository rfidRepository;
 	
@@ -34,7 +35,7 @@ public class RfidController {
 	 * @param fieldNames
 	 * @param fieldValues
 	 */
-	@RequestMapping(value = "/event", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void take(HttpServletRequest request,
 			@RequestParam(value = "reader_Name", required = true) String readerName,
 			@RequestParam(value = "field_names", required = true) String fieldNames,

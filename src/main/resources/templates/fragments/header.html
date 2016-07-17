@@ -47,14 +47,15 @@
 					<li role="presentation" class="dropdown"><a
 						class="dropdown-toggle" data-toggle="dropdown" href="#"
 						role="button" aria-haspopup="true" aria-expanded="false">
-							Admin <span class="caret"></span></a>
+							Setup <span class="caret"></span>
+					</a>
 						<ul class="dropdown-menu">
-							<li><a href="#" th:href="@{/subjects}">Subjects</a></li>
-							<li><a href="#" th:href="@{/providers}">Providers</a></li>
-							<li><a href="#" th:href="@{/tags}">Tags</a></li>
-								<li><a href="#" th:href="@{/readers}">Readers</a></li>
-						</ul>
-					</li>
+							<li><a href="#" th:href="@{/setup/tags}">Tags</a></li>
+							<li><a href="#" th:href="@{/setup/subjects}">Subjects</a></li>
+							<li><a href="#" th:href="@{/setup/providers}">Providers</a></li>
+							<li><a href="#" th:href="@{/setup/readers}">Readers</a></li>
+							<li><a href="#" th:href="@{/setup/locations}">Locations</a></li>
+						</ul></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
