@@ -38,3 +38,8 @@ test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
 .mvn
+
+**/*.bak
+**/*.mwb.beforefix
+**/*.pdf
+

@@ -34,7 +34,7 @@ public class RfidController {
 	 * @param fieldNames
 	 * @param fieldValues
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/event", method = RequestMethod.POST)
 	public void take(HttpServletRequest request,
 			@RequestParam(value = "reader_Name", required = true) String readerName,
 			@RequestParam(value = "field_names", required = true) String fieldNames,
