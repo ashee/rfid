@@ -16,8 +16,11 @@ is derived for patient subjects and providers.
 * Install git
 
 ### Git Installation
-[Windows](https://git-scm.com/download/win)
-OSX - Use homebrew ($ brew install git)
+
+Windows - [https://git-scm.com/download/win](https://git-scm.com/download/win)
+
+OSX - Use [homebrew](http://brew.sh/) followed by $ brew install git
+
 [Gui Tool](https://desktop.github.com/)
 
 Please note that STS includes a git tool within the IDE. See [http://www.eclipse.org/egit/](http://www.eclipse.org/egit/) for additional documentation.
