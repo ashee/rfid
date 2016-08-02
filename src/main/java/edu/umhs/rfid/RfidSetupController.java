@@ -1,6 +1,6 @@
 package edu.umhs.rfid;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ class RfidSetupController {
 	
 	@RequestMapping
 	String index(Model model) {
-		model.addAttribute("now", LocalDateTime.now());
+		model.addAttribute("now", new Date());
 		return "index";
 	}
 
