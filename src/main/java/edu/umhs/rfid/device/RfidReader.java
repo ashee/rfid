@@ -1,11 +1,7 @@
 package edu.umhs.rfid.device;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import com.thingmagic.ReadExceptionListener;
 import com.thingmagic.ReadListener;
@@ -16,16 +12,19 @@ import com.thingmagic.TMConstants;
 import com.thingmagic.TagProtocol;
 import com.thingmagic.TagReadData;
 
-
 public class RfidReader
 {
 	private static final Logger log = LoggerFactory.getLogger(RfidReader.class);
 	
-	String urls[] = {"llrp://10.21.237.144:5084/"};
-    Reader[] readers = new Reader[urls.length];
+	String urls[] = { 
+//			"llrp://10.21.237.144:5084/",
+//			"llrp://10.21.236.192:5084/"
+			"llrp://10.51.185.11:5084/"
+	};
+    
+	Reader[] readers = new Reader[urls.length];
     
     public void init() throws Exception {
-    	System.out.println("================== yes ===========!!");
         int i =0;
         for (String url: urls)
         {
@@ -34,6 +33,7 @@ public class RfidReader
 				readers[i].connect();
 			} catch (Exception e) {
 				log.error(e.toString(),e);
+				continue;
 			}
             if (Reader.Region.UNSPEC == (Reader.Region) readers[i].paramGet("/reader/region/id"))
             {
@@ -68,7 +68,6 @@ public class RfidReader
         for (Reader r : readers)
         {
             r.stopReading();
-            // Shut down reader
             r.destroy();
         }
     }
@@ -84,7 +83,6 @@ public class RfidReader
             }
             catch (ReaderException ex)
             {
-            	System.out.println("+++++++++++++++++ here ");
             	log.error(ex.toString());
             }
         }
@@ -96,11 +94,11 @@ public class RfidReader
 
         public void tagReadException(com.thingmagic.Reader r, ReaderException re)
         {
-            System.out.println("Reader Exception: " + re.getMessage());
-            if (re.getMessage().equals("Connection Lost"))
-            {
-//                System.exit(1);
-            }
+//            System.out.println("Reader Exception: " + re.getMessage());
+//            if (re.getMessage().equals("Connection Lost"))
+//            {
+////                System.exit(1);
+//            }
         }
     }
 }

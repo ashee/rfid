@@ -12,9 +12,10 @@ public class RfidDeviceController {
 	private static final Logger log = LoggerFactory.getLogger(RfidDeviceController.class);
 	RfidReader r;
 	
-	@Async("threadPoolTaskExecutor")
+//	@Async("threadPoolTaskExecutor")
 	public void init() {
 		try {
+			System.out.println("----------->" + log.getClass().getName());
 			r = new RfidReader();
 			r.init();
 		} catch (Exception ex) {
