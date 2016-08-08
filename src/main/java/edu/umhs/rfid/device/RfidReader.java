@@ -2,28 +2,35 @@ package edu.umhs.rfid.device;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
-import com.thingmagic.ReadExceptionListener;
-import com.thingmagic.ReadListener;
 import com.thingmagic.Reader;
-import com.thingmagic.ReaderException;
 import com.thingmagic.SimpleReadPlan;
 import com.thingmagic.TMConstants;
 import com.thingmagic.TagProtocol;
-import com.thingmagic.TagReadData;
 
+@Component
 public class RfidReader
 {
 	private static final Logger log = LoggerFactory.getLogger(RfidReader.class);
 	
+	@Autowired
+	RfidTagReadExceptionReceiver exceptionListener;
+	
+	@Autowired
+	RfidEventListener rl;
+	
 	String urls[] = { 
 //			"llrp://10.21.237.144:5084/",
 //			"llrp://10.21.236.192:5084/"
-			"llrp://10.51.185.11:5084/"
+			"llrp://10.21.236.41:5084/"
 	};
     
 	Reader[] readers = new Reader[urls.length];
     
+	@Async
     public void init() throws Exception {
         int i =0;
         for (String url: urls)
@@ -52,10 +59,8 @@ public class RfidReader
             readers[i].paramSet(TMConstants.TMR_PARAM_READ_PLAN, plan);
            
             // Create and add tag listener
-            ReadListener rl = new PrintListener();
             readers[i].addReadListener(rl);
 
-            ReadExceptionListener exceptionListener = new TagReadExceptionReceiver();
             readers[i].addReadExceptionListener(exceptionListener);
 
             // search for tags in the background
@@ -72,33 +77,4 @@ public class RfidReader
         }
     }
 
-    static class PrintListener implements ReadListener
-    {
-
-        public void tagRead(Reader r, TagReadData tr)
-        {
-            try
-            {
-                log.info(r.paramGet("/reader/uri").toString()+" Background read: " + tr.toString());
-            }
-            catch (ReaderException ex)
-            {
-            	log.error(ex.toString());
-            }
-        }
-
-    }
-
-    static class TagReadExceptionReceiver implements ReadExceptionListener
-    {
-
-        public void tagReadException(com.thingmagic.Reader r, ReaderException re)
-        {
-//            System.out.println("Reader Exception: " + re.getMessage());
-//            if (re.getMessage().equals("Connection Lost"))
-//            {
-////                System.exit(1);
-//            }
-        }
-    }
 }
