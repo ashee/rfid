@@ -2,7 +2,7 @@
 # mvnify-tm.sh
 
 TM_VERSION=1.27.3.16
-TM_HOME=$HOME/Projects/rfid/thingmagic/mercuryapi-${TM_VERSION}/java
+TM_HOME=$HOME/thingmagic
 
 mvn deploy:deploy-file \
 	-Durl=file:./repo/ \
