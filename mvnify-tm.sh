@@ -2,7 +2,7 @@
 # mvnify-tm.sh
 
 TM_VERSION=1.27.3.16
-TM_HOME=$HOME/thingmagic
+TM_HOME=$PWD/thingmagic
 
 mvn deploy:deploy-file \
 	-Durl=file:./repo/ \
